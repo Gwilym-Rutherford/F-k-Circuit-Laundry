@@ -13,6 +13,7 @@ public class CircuitGoMonitorService extends AccessibilityService {
 
     private static final String TAG = "CircuitGoMonitorService";
     private boolean wifiDisabled = false;
+    private boolean shownPanel = false;
 
 
     @Override
@@ -23,15 +24,16 @@ public class CircuitGoMonitorService extends AccessibilityService {
 
             AccessibilityNodeInfo rootNode = getRootInActiveWindow();
             if (rootNode != null) {
-                List<AccessibilityNodeInfo> foundNodes = rootNode.findAccessibilityNodeInfosByText("Payment");
+                List<AccessibilityNodeInfo> foundNodes = rootNode.findAccessibilityNodeInfosByText("machine");
 
-                for (AccessibilityNodeInfo node : foundNodes) {
+                if(!foundNodes.isEmpty() && !shownPanel){
                     disableWifi();
+                    shownPanel = true;
                 }
                 rootNode.recycle();
             }
-        }else{
-            wifiDisabled = false;
+        }else if(event.getPackageName() != null && !event.getPackageName().equals("com.android.systemui")) {
+            shownPanel = false;
         }
     }
 
@@ -41,11 +43,9 @@ public class CircuitGoMonitorService extends AccessibilityService {
     }
 
     private void disableWifi() {
-        if(!wifiDisabled) {
-            Intent panelIntent = new Intent(android.provider.Settings.Panel.ACTION_INTERNET_CONNECTIVITY);
-            panelIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(panelIntent);
-            wifiDisabled = true;
-        }
+        Intent panelIntent = new Intent(android.provider.Settings.Panel.ACTION_INTERNET_CONNECTIVITY);
+        panelIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(panelIntent);
+        wifiDisabled = true;
     }
 }

@@ -3,5 +3,4 @@
     android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged"
     android:accessibilityFeedbackType="feedbackGeneric"
     android:canRetrieveWindowContent="true"
-    android:label="LAUNDRY_DEBUG_SERVICE"
-    android:packageNames="co.uk.circuit.go.app" />
+    android:label="F#@k Circuit Laundry Service" />
