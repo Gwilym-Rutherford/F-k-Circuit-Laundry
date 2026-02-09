@@ -23,13 +23,15 @@ public class CircuitGoMonitorService extends AccessibilityService {
 
             AccessibilityNodeInfo rootNode = getRootInActiveWindow();
             if (rootNode != null) {
-                List<AccessibilityNodeInfo> foundNodes = rootNode.findAccessibilityNodeInfosByText("Choose machine");
+                List<AccessibilityNodeInfo> foundNodes = rootNode.findAccessibilityNodeInfosByText("Payment");
 
                 for (AccessibilityNodeInfo node : foundNodes) {
                     disableWifi();
                 }
                 rootNode.recycle();
             }
+        }else{
+            wifiDisabled = false;
         }
     }
 
