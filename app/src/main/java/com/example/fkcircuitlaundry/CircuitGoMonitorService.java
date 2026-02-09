@@ -24,7 +24,7 @@ public class CircuitGoMonitorService extends AccessibilityService {
 
             AccessibilityNodeInfo rootNode = getRootInActiveWindow();
             if (rootNode != null) {
-                List<AccessibilityNodeInfo> foundNodes = rootNode.findAccessibilityNodeInfosByText("machine");
+                List<AccessibilityNodeInfo> foundNodes = rootNode.findAccessibilityNodeInfosByText("Payment");
 
                 if(!foundNodes.isEmpty() && !shownPanel){
                     disableWifi();
